@@ -78,7 +78,7 @@ itself.
 
 ###Creating a CF
 
-###What thread it is running in 
+####What thread it is running in 
 - if no thread pool is specified then all async thread are run in forkjoin common pool
 ###Creating pool of threads to run async threads
 ```
@@ -90,4 +90,23 @@ CompletableFuture completableFuture2 = CompletableFuture.runAsync(
 ```
 ###Running a task that yields result
 
-###Get & getNow
+###Get & getNow - get is a blocking call where as getNow provides an option to provide a default value in case the future task hasn't completed yet.
+
+`
+System.out.println(completableFuture3.getNow(-1)); // if future returns an integer than default value is -1.
+`
+
+For CF, when the future task has completed and we want to get the result 
+out of it, which thread, the thread executing the future task or the main thread which creates 
+the future task will do the work depends upon if main thread is busy in other task or not. 
+
+**Program CFWithThenAccept** explains it. Verify and play with it to understand different outputs in different scenarios.
+
+                        thenAccept of any non-async method                        async method
+CF has completed        The caller thread/main will execute                It will run in another thread
+CF hasn't completed     The thread completing future task will execute     It will run in another thread
+
+For async, the only thing to keep in mind is, if we provide a pool, it will execute in threads from
+that pool, but if we don't provide a pool, then it will execute in common pool.        
+
+ 
