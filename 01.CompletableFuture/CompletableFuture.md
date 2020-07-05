@@ -63,4 +63,8 @@ as there is nothing to cancel.
 
 ## Future of Java Future
 
+Future has lot of limitations. 
+1. Getting result using future.get() is a blocking call. 
+2. When scheduling multiple tasks if one of the task fails all future task's state is not known clearly. Exception/error handling 
+can't be done efficiently in Future. 
 

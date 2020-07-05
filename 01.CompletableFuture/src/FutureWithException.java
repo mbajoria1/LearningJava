@@ -32,7 +32,8 @@ public class FutureWithException {
 
         System.out.println(future.isDone());
 
-        System.out.println(future.get()); // in case future thorws an exception, exception will be thrown in get method and any exception will be wrapped inside java.util.concurrent.ExecutionException object
+        System.out.println(future.get()); // in case future thorws an exception, exception will be thrown in get method and any exception will be wrapped
+        // inside java.util.concurrent.ExecutionException object
 
         System.out.println("Terminated");
     }
