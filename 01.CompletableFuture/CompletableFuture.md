@@ -54,17 +54,40 @@ Starting work
 Task is getting executed in,Thread[pool-1-thread-1,5,main]
 Value returned from future :2
 
-## Java Future exception
+### Java Future exception
 
 When there is an exception in execution of a concurrent process, the exception is wrapped inside ExecutionException object.
 future.isDone() - returns true when future task is complete.
 future.cancel(true) - is used to cancel a task which hasn't yet completed. If a future task has already completed, executing cancel() will not do anything
 as there is nothing to cancel.
 
-## Future of Java Future
+### Future of Java Future
 
 Future has lot of limitations. 
 1. Getting result using future.get() is a blocking call. 
 2. When scheduling multiple tasks if one of the task fails all future task's state is not known clearly. Exception/error handling 
 can't be done efficiently in Future. 
 
+##Completable Future:
+
+1. CF is nothing but promises in Javascript.
+2. It has two channel. One for data & another for error/exceptions. 
+3. CF is pipeline of stages. When one stage completes , next one takes over. If any stage has any exception, then flow comes to
+exception channel and then its upto us how we want to handle it. We can send the control back to data channel or handle that in exception channel
+itself.
+
+###Creating a CF
+
+###What thread it is running in 
+- if no thread pool is specified then all async thread are run in forkjoin common pool
+###Creating pool of threads to run async threads
+```
+ForkJoinPool pool = new ForkJoinPool(10);
+
+CompletableFuture completableFuture2 = CompletableFuture.runAsync(
+                () -> System.out.println("Thread 2 is running in "+Thread.currentThread()),
+                pool);
+```
+###Running a task that yields result
+
+###Get & getNow
