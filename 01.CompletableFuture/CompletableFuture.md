@@ -68,7 +68,7 @@ Future has lot of limitations.
 2. When scheduling multiple tasks if one of the task fails all future task's state is not known clearly. Exception/error handling 
 can't be done efficiently in Future. 
 
-##Completable Future:
+## Completable Future:
 
 1. CF is nothing but promises in Javascript.
 2. It has two channel. One for data & another for error/exceptions. 
@@ -76,11 +76,11 @@ can't be done efficiently in Future.
 exception channel and then its upto us how we want to handle it. We can send the control back to data channel or handle that in exception channel
 itself.
 
-###Creating a CF
+### Creating a CF
 
-####What thread it is running in 
+#### What thread it is running in 
 - if no thread pool is specified then all async thread are run in forkjoin common pool
-###Creating pool of threads to run async threads
+### Creating pool of threads to run async threads
 ```
 ForkJoinPool pool = new ForkJoinPool(10);
 
@@ -88,9 +88,9 @@ CompletableFuture completableFuture2 = CompletableFuture.runAsync(
                 () -> System.out.println("Thread 2 is running in "+Thread.currentThread()),
                 pool);
 ```
-###Running a task that yields result
+### Running a task that yields result
 
-###Get & getNow - get is a blocking call where as getNow provides an option to provide a default value in case the future task hasn't completed yet.
+### Get & getNow - get is a blocking call where as getNow provides an option to provide a default value in case the future task hasn't completed yet.
 
 `
 System.out.println(completableFuture3.getNow(-1)); // if future returns an integer than default value is -1.
