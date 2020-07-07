@@ -105,7 +105,8 @@ CompletableFuture completableFuture2 = CompletableFuture.runAsync(
         });
 ```
 
-### Get & getNow - get is a blocking call where as getNow provides an option to provide a default value in case the future task hasn't completed yet.
+### Get & getNow 
+- get is a blocking call where as getNow provides an option to provide a default value in case the future task hasn't completed yet.
 
 `
 System.out.println(completableFuture3.getNow(-1)); // if future returns an integer than default value is -1.
@@ -117,8 +118,8 @@ the future task will do the work depends upon if main thread is busy in other ta
 
 **Program CFWithThenAccept** explains it. Verify and play with it to understand different outputs in different scenarios.
 
-| Future task status     | non-async method like thenAccept               |async method like thenAcceptAsync
-| -----------------------|------------------------------------------------|-------------------------------------
+|Future task status      |Non-async method like thenAccept                |Async method like thenAcceptAsync
+|------------------------|------------------------------------------------|-------------------------------------
 | CF has completed       | The caller thread/main will execute            | It will run in another thread
 | CF hasn't completed    | The thread completing future task will execute | It will run in another thread
 
