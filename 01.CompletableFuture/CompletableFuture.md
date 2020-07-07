@@ -106,23 +106,49 @@ CompletableFuture completableFuture2 = CompletableFuture.runAsync(
 ```
 
 ### Get & getNow 
-- get is a blocking call where as getNow provides an option to provide a default value in case the future task hasn't completed yet.
+- `get` is a blocking call where as `getNow` provides an option to provide a default value in case the future task hasn't completed yet.
 
 `
 System.out.println(completableFuture3.getNow(-1)); // if future returns an integer than default value is -1.
 `
+## Completable thenAccept
 
-For CF, when the future task has completed and we want to get the result 
+Accept method is a consumer which takes a value as input but doesn't return anything. It just does some processing 
+with it. With Completable, we can use thenAccept to pass a consumer to perform same kind of operation.
+
+>Note: For CF, when the future task has completed and we want to get the result 
 out of it, which thread, the thread executing the future task or the main thread which creates 
-the future task will do the work depends upon if main thread is busy in other task or not. 
+the future task will do the work depends upon if main thread is busy in other task or not. **Program CFWithThenAccept** explains it. Verify and play with it to understand different outputs in different scenarios.
 
-**Program CFWithThenAccept** explains it. Verify and play with it to understand different outputs in different scenarios.
+## Completable async methods
 
 |Future task status      |Non-async method like thenAccept                |Async method like thenAcceptAsync
 |------------------------|------------------------------------------------|-------------------------------------
 | CF has completed       | The caller thread/main will execute            | It will run in another thread
 | CF hasn't completed    | The thread completing future task will execute | It will run in another thread
 
->Note: For async only thing to keep in mind is, if we provide a pool, it will execute in threads from that pool, but if we don't provide a pool, then it will execute in common pool.        
+>Note: For async only thing to keep in mind is, if we provide a pool, it will execute in threads from that pool, but if we don't provide a pool, then it will execute in common pool.
+
+
+## Completable thenApply
+
+## Completable thenRun
+
+## Completable complete
+
+## Completable cancelling
+
+## Completable Exceptions
+## Completable chaining
+## Completable thencombine        
+## Completable thencompose
+## Completable acceptEither
+## Completable runafter
+## Completable anyof
+## Completable timeout
+## Completable allof
+## Completable using allof
+
+
 
  
