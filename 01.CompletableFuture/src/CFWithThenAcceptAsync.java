@@ -14,11 +14,12 @@ public class CFWithThenAcceptAsync {
         CompletableFuture<Integer> result = CompletableFuture.supplyAsync(() -> process(),pool);
         sleep(1000);
         System.out.println("In main thread:" + Thread.currentThread());
-        //sleep(2000);
+        sleep(2000);
         ForkJoinPool pool2 = new ForkJoinPool(10);
         result.thenAcceptAsync(CFWithThenAccept::print,pool2);
+        //result.thenAcceptAsync(CFWithThenAccept::print);
         System.out.println("Done");
-        //sleep(3000);
+        sleep(3000);
     }
 
     public static void print(int value) {

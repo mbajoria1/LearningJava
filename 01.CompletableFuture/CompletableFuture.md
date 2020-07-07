@@ -102,7 +102,7 @@ the future task will do the work depends upon if main thread is busy in other ta
 
 **Program CFWithThenAccept** explains it. Verify and play with it to understand different outputs in different scenarios.
 
-                        thenAccept of any non-async method                        async method
+                        thenAccept or any non-async method                 async method like thenAcceptAsync
 CF has completed        The caller thread/main will execute                It will run in another thread
 CF hasn't completed     The thread completing future task will execute     It will run in another thread
 
