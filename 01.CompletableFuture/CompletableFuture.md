@@ -77,7 +77,10 @@ exception channel and then its upto us how we want to handle it. We can send the
 itself.
 
 ### Creating a CF
-
+```
+CompletableFuture completableFuture = CompletableFuture.runAsync(
+                () -> System.out.println("Thread is running in "+Thread.currentThread()));
+```
 #### What thread it is running in 
 - if no thread pool is specified then all async thread are run in forkjoin common pool
 ### Creating pool of threads to run async threads
@@ -89,6 +92,18 @@ CompletableFuture completableFuture2 = CompletableFuture.runAsync(
                 pool);
 ```
 ### Running a task that yields result
+```
+ ExecutorService executorService = Executors.newFixedThreadPool(100);
+        Future<Integer> future = executorService.submit(new Callable<Integer>() {
+            @Override
+            public Integer call() throws Exception {
+                System.out.println("Starting work");
+                Thread.sleep(1000);
+                System.out.println("Task is getting executed in,"+Thread.currentThread());
+                return 2;
+            }
+        });
+```
 
 ### Get & getNow - get is a blocking call where as getNow provides an option to provide a default value in case the future task hasn't completed yet.
 
@@ -102,11 +117,11 @@ the future task will do the work depends upon if main thread is busy in other ta
 
 **Program CFWithThenAccept** explains it. Verify and play with it to understand different outputs in different scenarios.
 
-                        thenAccept or any non-async method                 async method like thenAcceptAsync
-CF has completed        The caller thread/main will execute                It will run in another thread
-CF hasn't completed     The thread completing future task will execute     It will run in another thread
+| Future task status     | non-async method like thenAccept               |async method like thenAcceptAsync
+| -----------------------|------------------------------------------------|-------------------------------------
+| CF has completed       | The caller thread/main will execute            | It will run in another thread
+| CF hasn't completed    | The thread completing future task will execute | It will run in another thread
 
-For async, the only thing to keep in mind is, if we provide a pool, it will execute in threads from
-that pool, but if we don't provide a pool, then it will execute in common pool.        
+>Note: For async only thing to keep in mind is, if we provide a pool, it will execute in threads from that pool, but if we don't provide a pool, then it will execute in common pool.        
 
  
