@@ -132,7 +132,31 @@ the future task will do the work depends upon if main thread is busy in other ta
 
 ## Completable thenApply
 
+thenApply can be used to call a function(A method which takes one or multiple parameters and returns something as well)
+in context of Completable future. Below is one small example. Refer to CFWithThenApply for full code.
+```
+    public static int transform(int value){
+        System.out.println("Transform called in thread:"+Thread.currentThread());
+        return value *2;
+    }
+    
+        CompletableFuture
+                .supplyAsync(CFWithThenApply::process)   // returns an integer value
+                .thenApply(CFWithThenApply::transform)   // Takes the integer and return double of it.
+                .thenAccept(System.out::println);
+```
+
 ## Completable thenRun
+thenRun can be used in different usecases such as at the end of an process execution for logging purposes.
+or to print a message in console etc. Below is a simple working example.
+```
+CompletableFuture
+                .supplyAsync(CFWithThenApply::process)
+                .thenApplyAsync(CFWithThenApply::transform)
+                .thenAcceptAsync(CFWithThenApply::print)
+                .thenRun(() -> System.out.println("We are done here..."));
+
+```
 
 
 ## Completable complete
