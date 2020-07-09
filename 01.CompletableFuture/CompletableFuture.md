@@ -161,13 +161,19 @@ CompletableFuture
 ## Completable complete
 Instead of calling a supply/apply/accept on a future, we can instead first build a pipeline of stages/tasks that needs to be completed.
 Then pass the future to a separate method to perform the task. In this case, when we pass just the future it wont perform the tasks until
-we execute CompletableFuture.complete() operation on it. `java CompletableComplete` code has example of the same. Please verify it.
+we execute `CompletableFuture.complete()` operation on it. `java CompletableComplete` code has example of the same. Please verify it.
 CompletableFuture has multiple stages. When we build the pipleline, CF will be in "Not Completed, 1 dependent" stage as it has a pipeline which needs to be completed. Then after the future task
 has been completed it's stage will be "completed normally" stage.  
 
 ## Completable cancelling
+State of a completableFuture will be in not completed until the future task has finished execution. We can verify status details of a CF
+by calling `isDone()` method instead of printing CF object as done in previous example. `isDone()` returns true when future has completed
+execution or it has ended abruptly due to an exception or future has been cancelled. 
 
-
+`completableFuture.cancel(true) ` - cancels the future only if it hasn't completed yet. Similarly when we call `completableFuture.complete()`
+will be executed only if future hasn't completed yet or if it hasn't been cancelled yet. 
+If future has already been cancelled then `complete()` wouldn't do anything , it will simply be ignored. Look at `CompletableCancel` class
+to see one example.
 
 ## Completable Exceptions
 ## Completable chaining
