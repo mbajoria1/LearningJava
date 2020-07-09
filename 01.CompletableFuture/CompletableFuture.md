@@ -57,9 +57,9 @@ Value returned from future :2
 ### Java Future exception
 
 When there is an exception in execution of a concurrent process, the exception is wrapped inside ExecutionException object.
-future.isDone() - returns true when future task is complete.
+future.isDone() - returns true when future task is completed or it blows up(throws an exception) or if the future has been cancelled.
 future.cancel(true) - is used to cancel a task which hasn't yet completed. If a future task has already completed, executing cancel() will not do anything
-as there is nothing to cancel.
+as there is nothing to cancel, it will simply be ignored. future.cancel(false) doesn't do anything.
 
 ### Future of Java Future
 
@@ -132,8 +132,7 @@ the future task will do the work depends upon if main thread is busy in other ta
 
 ## Completable thenApply
 
-thenApply can be used to call a function(A method which takes one or multiple parameters and returns something as well)
-in context of Completable future. Below is one small example. Refer to CFWithThenApply for full code.
+thenApply can be used to call a function(A method which takes one or multiple parameters and returns a value as well)
 ```
     public static int transform(int value){
         System.out.println("Transform called in thread:"+Thread.currentThread());
@@ -147,8 +146,8 @@ in context of Completable future. Below is one small example. Refer to CFWithThe
 ```
 
 ## Completable thenRun
-thenRun can be used in different usecases such as at the end of an process execution for logging purposes.
-or to print a message in console etc. Below is a simple working example.
+thenRun can be used in different use cases such as at the end of an process execution for 
+logging purposes or to print a message in console etc. Below is a simple working example.
 ```
 CompletableFuture
                 .supplyAsync(CFWithThenApply::process)
@@ -160,8 +159,15 @@ CompletableFuture
 
 
 ## Completable complete
+Instead of calling a supply/apply/accept on a future, we can instead first build a pipeline of stages/tasks that needs to be completed.
+Then pass the future to a separate method to perform the task. In this case, when we pass just the future it wont perform the tasks until
+we execute CompletableFuture.complete() operation on it. `java CompletableComplete` code has example of the same. Please verify it.
+CompletableFuture has multiple stages. When we build the pipleline, CF will be in "Not Completed, 1 dependent" stage as it has a pipeline which needs to be completed. Then after the future task
+has been completed it's stage will be "completed normally" stage.  
 
 ## Completable cancelling
+
+
 
 ## Completable Exceptions
 ## Completable chaining
