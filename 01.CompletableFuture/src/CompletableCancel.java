@@ -69,7 +69,7 @@ public class CompletableCancel {
 // **** Notice in above o/p process method hasn't executed at call when we called completableFuture.complete(5) as future has already been cancelled ,
 // **** complete() call is ignored. Again if we call cancel() after complete() statement , cancel() would be ignored as task has already been completed
 // **** and there is nothing to cancel. See below example
-        
+
         System.out.println("");
         CompletableFuture<Integer> completableFuture2 = new CompletableFuture<>();
         report(completableFuture2);
