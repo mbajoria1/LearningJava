@@ -3,8 +3,9 @@
 ## Java Future
 
 Future was introduces in Java 5 timeframe. It was used for asynchronous programming.But it had few issues which is the reason for introducing Completable Future in Java8. Lets discuss few problems of Future and how newer libary resolved those.
-
+<br/>
 **The good old ExecutorService** was used to create a pool of threads and use it for parallel programming. We can create a thread by using Thread class but thats not very effient way to handle multiple threads. Below program shows a simple code running two paralled threads. One main thread and one thread pool having 100 threads.
+<br/>
 
 > For full program, refer to src folder
 > **Invoking a task & performing an action**
@@ -41,7 +42,7 @@ For getting result from executorService we need to use Callable as Runnable does
 
 ```
 
-If we keep main thread name print & result.get() in two different lines, we can see main thread will be printed before future task is complete.Below code & o/p
+If we keep main thread name print & `result.get()` in two different lines, we can see main thread will be printed before future task is complete.Below code & o/p
 explains that.
 
 ```
@@ -54,13 +55,14 @@ Starting work
 **_In main thread: Thread[main,5,main]_** - this line is printed before and when result is ready in future then 2 is printed.
 Task is getting executed in,Thread[pool-1-thread-1,5,main]
 Value returned from future :2
+<br/>
 
 ### Java Future exception
 
 When there is an exception in execution of a concurrent process, the exception is wrapped inside ExecutionException object.
-future.isDone() - returns true when future task is completed or it blows up(throws an exception) or if the future has been cancelled.
-future.cancel(true) - is used to cancel a task which hasn't yet completed. If a future task has already completed, executing cancel() will not do anything
-as there is nothing to cancel, it will simply be ignored. future.cancel(false) doesn't do anything.
+`future.isDone()` - returns true when future task is completed or it blows up(throws an exception) or if the future has been cancelled.
+`future.cancel(true)` - is used to cancel a task which hasn't yet completed. If a future task has already completed, executing `cancel()` will not do anything
+as there is nothing to cancel, it will simply be ignored. `future.cancel(false)` doesn't do anything.
 
 ### Future of Java Future
 
@@ -69,6 +71,7 @@ Future has lot of limitations.
 1. Getting result using future.get() is a blocking call.
 2. When scheduling multiple tasks if one of the task fails all future task's state is not known clearly. Exception/error handling
    can't be done efficiently in Future.
+   <br/>
 
 ## Completable Future:
 
@@ -88,6 +91,7 @@ CompletableFuture completableFuture = CompletableFuture.runAsync(
 #### What thread it is running in
 
 - if no thread pool is specified then all async thread are run in forkjoin common pool
+  <br/>
 
 ### Creating pool of threads to run async threads
 
@@ -197,14 +201,61 @@ to see one example.
 
 `completableFuture.isCompletedExceptionally()` will be true when tasks completes with an exception.<br/>
 `completableFuture.isCompleted()` - true when task completes normally.
+<br/>
 
 ## Completable chaining
 
+[CompletableChaining](https://github.com/mbajoria1/LearningJava/blob/master/01.CompletableFuture/out/production/CompletableFuture/CompletableChaining.class)
+
+Completable in java can be though of as two tracks.
+
+1. Complete/Data track.
+2. Exception track.
+
+If CF fails or blows up at any stage then control shifts from data track to exception track/channel.
+From exception channel it can come back to data channel based on how we handle the exception in our code or it can continue to stay on exception channel. Based on this, there are 4 different scenarios which can happen.
+
+1. Complete to complete
+2. Complete to exception
+3. Exception to complete
+4. Exception to Exception
+
 ## Completable thencombine
+
+`thenCombine` can be used to combine the result of two `completableFuture` . In below code example, google & amzn
+contains stock prices for their companies. thenCombine is used to sum up the price to get total amount.
+
+```
+CompletableFuture<Double> google = getFuture("google",200);
+        CompletableFuture<Double> amzn = getFuture("amazon",300);
+
+google.thenCombine(amzn , Double::sum)
+                .thenAccept(CompletableThenCombine::print);
+
+```
 
 ## Completable thencompose
 
+[CompletableThenCombine](https://github.com/mbajoria1/LearningJava/blob/master/01.CompletableFuture/out/production/CompletableFuture/CompletableThenCompose.class)
+
+If a method takes a value but returns a stream or future object then instead of `thenApply` , we need to use `thenCompose` which is used to extract the result from future object.
+
+```
+public static void main(String[] args) {
+        getStockName(1)
+        .thenCompose(stock -> getFuture(stock,200))
+        // as getFuture takes values but returns CF.
+        .thenAccept(System.out::println);
+}
+
+public static CompletableFuture<Double> getFuture(String stockName, int noOfShares){
+        return CompletableFuture.supplyAsync(() -> getPrice(stockName) * noOfShares);
+}
+```
+
 ## Completable acceptEither
+
+acceptEither accepts result from any completableFuture which completes faster. So if we have two CFs, acceptEither will take 1st one to complete and perform an action. For exception also, if 1st one to complete throws an exception then it will complete exceptionally else it will complete successfully.
 
 ## Completable runafter
 
