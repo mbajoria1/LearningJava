@@ -182,18 +182,19 @@ has been completed it's stage will be "completed normally" stage.
 
 ## Completable cancelling
 
+[CompletableCancel.java](https://github.com/mbajoria1/LearningJava/blob/master/01.CompletableFuture/src/CompletableCancel.java)
+<br/>
 State of a completableFuture will be in not completed until the future task has finished execution. We can verify status details of a CF
 by calling `isDone()` method instead of printing CF object as done in previous example. `isDone()` returns true when future has completed
 execution or it has ended abruptly due to an exception or future has been cancelled.
 
 `completableFuture.cancel(true)` - cancels the future only if it hasn't completed yet. Similarly when we call `completableFuture.complete()`
 will be executed only if future hasn't completed yet or if it hasn't been cancelled yet.
-If future has already been cancelled then `complete()` wouldn't do anything , it will simply be ignored. Look at `CompletableCancel` class
-to see one example.
+If future has already been cancelled then `complete()` wouldn't do anything , it will simply be ignored.
 
 ## Completable Exceptions
 
-### Code reference -CompletableExceptions.java
+[CompletableExceptions.java](https://github.com/mbajoria1/LearningJava/blob/master/01.CompletableFuture/src/CompletableExceptions.java)
 
 `exceptionally()` - this supports to handle exceptions caused while executing a future pipeline. If there are any exceptions then you can either continue the workflow in error channel and exit the flow by throwing a proper error message or you may pass the control to again data channel. How you want to handle it, its upto the requirement you have.
 
@@ -205,7 +206,7 @@ to see one example.
 
 ## Completable chaining
 
-[CompletableChaining](https://github.com/mbajoria1/LearningJava/blob/master/01.CompletableFuture/out/production/CompletableFuture/CompletableChaining.class)
+[CompletableChaining.java](https://github.com/mbajoria1/LearningJava/blob/master/01.CompletableFuture/src/CompletableChaining.java)
 
 Completable in java can be though of as two tracks.
 
@@ -222,6 +223,9 @@ From exception channel it can come back to data channel based on how we handle t
 
 ## Completable thencombine
 
+[CompletableThenCombine.java](https://github.com/mbajoria1/LearningJava/blob/master/01.CompletableFuture/src/CompletableThenCombine.java)
+<br/>
+
 `thenCombine` can be used to combine the result of two `completableFuture` . In below code example, google & amzn
 contains stock prices for their companies. thenCombine is used to sum up the price to get total amount.
 
@@ -236,7 +240,7 @@ google.thenCombine(amzn , Double::sum)
 
 ## Completable thencompose
 
-[CompletableThenCombine](https://github.com/mbajoria1/LearningJava/blob/master/01.CompletableFuture/out/production/CompletableFuture/CompletableThenCompose.class)
+[CompletableThenCompose.java](https://github.com/mbajoria1/LearningJava/blob/master/01.CompletableFuture/src/CompletableThenCompose.java)
 
 If a method takes a value but returns a stream or future object then instead of `thenApply` , we need to use `thenCompose` which is used to extract the result from future object.
 
@@ -253,11 +257,14 @@ public static CompletableFuture<Double> getFuture(String stockName, int noOfShar
 }
 ```
 
-## Completable acceptEither
+## Completable `acceptEither`/`applyEither`
 
+[CFAcceptApplyEither.java](https://github.com/mbajoria1/LearningJava/blob/master/01.CompletableFuture/src/CFAcceptApplyEither.java)
 acceptEither accepts result from any completableFuture which completes faster. So if we have two CFs, acceptEither will take 1st one to complete and perform an action. For exception also, if 1st one to complete throws an exception then it will complete exceptionally else it will complete successfully.
 
-## Completable runafter
+## Completable runAfter
+
+[CompletableRunAfter.java](https://github.com/mbajoria1/LearningJava/blob/master/01.CompletableFuture/src/CompletableRunAfter.java)
 
 ## Completable anyof
 
