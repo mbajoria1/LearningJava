@@ -120,12 +120,18 @@ CompletableFuture completableFuture2 = CompletableFuture.runAsync(
 
 ### Get & getNow
 
+[CompletableFutureSimpleExample.java](https://github.com/mbajoria1/LearningJava/blob/master/01.CompletableFuture/src/CompletableFutureSimpleExample.java)
+<br/>
+
 - `get` is a blocking call where as `getNow` provides an option to provide a default value in case the future task hasn't completed yet.
 
 `System.out.println(completableFuture3.getNow(-1)); // if future returns an integer than default value is -1.`
 
 ## Completable thenAccept
 
+[CFWithThenAccept.java](https://github.com/mbajoria1/LearningJava/blob/master/01.CompletableFuture/src/CFWithThenAccept.java)
+<br/>
+<br/>
 Accept method is a consumer which takes a value as input but doesn't return anything. It just does some processing
 with it. With Completable, we can use thenAccept to pass a consumer to perform same kind of operation.
 
@@ -135,15 +141,21 @@ with it. With Completable, we can use thenAccept to pass a consumer to perform s
 
 ## Completable async methods
 
-| Future task status  | Non-async method like thenAccept               | Async method like thenAcceptAsync |
+[CFWithThenAcceptAsync.java](https://github.com/mbajoria1/LearningJava/blob/master/01.CompletableFuture/src/CFWithThenAcceptAsync.java)
+<br/>
+<br/>
+| Future task status | Non-async method like thenAccept | Async method like thenAcceptAsync |
 | ------------------- | ---------------------------------------------- | --------------------------------- |
-| CF has completed    | The caller thread/main will execute            | It will run in another thread     |
-| CF hasn't completed | The thread completing future task will execute | It will run in another thread     |
+| CF has completed | The caller thread/main will execute | It will run in another thread |
+| CF hasn't completed | The thread completing future task will execute | It will run in another thread |
 
 > Note: For async only thing to keep in mind is, if we provide a pool, it will execute in threads from that pool, but if we don't provide a pool, then it will execute in common pool.
 
 ## Completable thenApply
 
+[CFWithThenApply.java](https://github.com/mbajoria1/LearningJava/blob/master/01.CompletableFuture/src/CFWithThenApply.java)
+<br/>
+<br/>
 thenApply can be used to call a function(A method which takes one or multiple parameters and returns a value as well)
 
 ```
@@ -160,6 +172,9 @@ thenApply can be used to call a function(A method which takes one or multiple pa
 
 ## Completable thenRun
 
+[CFWithThenRun.java](https://github.com/mbajoria1/LearningJava/blob/master/01.CompletableFuture/src/CFWithThenRun.java)
+<br/>
+<br/>
 thenRun can be used in different use cases such as at the end of an process execution for
 logging purposes or to print a message in console etc. Below is a simple working example.
 
@@ -174,6 +189,9 @@ CompletableFuture
 
 ## Completable complete
 
+[CompletableComplete.java](https://github.com/mbajoria1/LearningJava/blob/master/01.CompletableFuture/src/CompletableComplete.java)
+<br/>
+<br/>
 Instead of calling a supply/apply/accept on a future, we can instead first build a pipeline of stages/tasks that needs to be completed.
 Then pass the future to a separate method to perform the task. In this case, when we pass just the future it wont perform the tasks until
 we execute `CompletableFuture.complete()` operation on it. `java CompletableComplete` code has example of the same. Please verify it.
@@ -183,6 +201,7 @@ has been completed it's stage will be "completed normally" stage.
 ## Completable cancelling
 
 [CompletableCancel.java](https://github.com/mbajoria1/LearningJava/blob/master/01.CompletableFuture/src/CompletableCancel.java)
+<br/>
 <br/>
 State of a completableFuture will be in not completed until the future task has finished execution. We can verify status details of a CF
 by calling `isDone()` method instead of printing CF object as done in previous example. `isDone()` returns true when future has completed
@@ -260,6 +279,8 @@ public static CompletableFuture<Double> getFuture(String stockName, int noOfShar
 ## Completable `acceptEither`/`applyEither`
 
 [CFAcceptApplyEither.java](https://github.com/mbajoria1/LearningJava/blob/master/01.CompletableFuture/src/CFAcceptApplyEither.java)
+<br/>
+<br/>
 acceptEither accepts result from any completableFuture which completes faster. So if we have two CFs, acceptEither will take 1st one to complete and perform an action. For exception also, if 1st one to complete throws an exception then it will complete exceptionally else it will complete successfully.
 
 ## Completable runAfter
