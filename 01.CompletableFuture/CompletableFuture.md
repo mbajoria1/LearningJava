@@ -343,6 +343,7 @@ For `anyOf` function we can introduce a CF with a timeout value. If none of the 
 ```
 
 <br/>
+
 ## Completable allOf
 
 [CompletableAllof.java](https://github.com/mbajoria1/LearningJava/blob/master/01.CompletableFuture/src/CompletableAllof.java)
