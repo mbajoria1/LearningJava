@@ -286,10 +286,57 @@ acceptEither accepts result from any completableFuture which completes faster. S
 ## Completable runAfter
 
 [CompletableRunAfter.java](https://github.com/mbajoria1/LearningJava/blob/master/01.CompletableFuture/src/CompletableRunAfter.java)
+<br/>
+<br/>
 
 ## Completable anyof
 
+CF `anyof` can take multiple `completableFuture` as input and returns the one which completes first. Anyof can take different type of CFs. See below example. Because of accepting different types, the returned CF is an object. So, without knowing object type you cannot apply direct opeartions on it. You need to check its type first.
+
+```
+  CompletableFuture<Integer> c1 = CompletableFuture.supplyAsync(() -> generate(1));
+        CompletableFuture<Integer> c2 = CompletableFuture.supplyAsync(() -> generate(2));
+        CompletableFuture<Integer> c3 = CompletableFuture.supplyAsync(() -> generate(3));
+        CompletableFuture<Double> c4 = CompletableFuture.supplyAsync(() -> generate());
+        CompletableFuture<String> c5 = CompletableFuture.supplyAsync(() -> generate("Madhuri"));
+
+        CompletableFuture.anyOf(c1, c2, c3, c4, c5)
+                .thenAccept(System.out::println);
+```
+
+In case of anyOf, which ever CF completes first the final o/p depends on that.
+
+- In case the 1st one completes successfully then anyOf CF completes normally.
+- If 1st one thorws an exception then CF completes exceptionally.
+- If 1st one is cancelled, then it CF cancells.
+  <br/>
+  <br/>
+
 ## Completable timeout
+
+For `anyOf` function we can introduce a CF with a timeout value. If none of the CFs responds within that SLA, `anyOf completableFuture` will complete exceptionally thworing a timeout exception.
+
+```
+    public static CompletableFuture<Void> createTimeout(int ms){
+        return CompletableFuture.supplyAsync(() ->{
+            sleep(ms);
+            throw new RuntimeException("Timeout reached");
+        });
+    }
+
+     CompletableFuture<Integer> cf1 = CompletableFuture.supplyAsync(() -> generate(1));
+        CompletableFuture<Integer> cf2 = CompletableFuture.supplyAsync(() -> generate(2));
+        CompletableFuture<Integer> cf3 = CompletableFuture.supplyAsync(() -> generate(3));
+        CompletableFuture<Integer> cf4 = CompletableFuture.supplyAsync(() -> generate(4));
+        CompletableFuture<Integer> cf5 = CompletableFuture.supplyAsync(() -> generate(5));
+        CompletableFuture<Void> cf6 = createTimeout(3000);
+
+        // O/P for timeout: Error? java.lang.RuntimeException: Timeout reached
+        CompletableFuture.anyOf(cf1, cf2, cf3, cf4, cf5,cf6)
+                .exceptionally(CompletableTimeout::report)
+                .thenApply(value -> (int) value * 10)
+                .thenAccept(System.out::println);
+```
 
 ## Completable allof
 
