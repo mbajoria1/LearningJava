@@ -343,7 +343,8 @@ For `anyOf` function we can introduce a CF with a timeout value. If none of the 
 ```
 
 <br/>
-## Completable allof
+## Completable allOf
+
 [CompletableAllof.java](https://github.com/mbajoria1/LearningJava/blob/master/01.CompletableFuture/src/CompletableAllof.java)
 
 In case of `anyOf` the returned CF is of type object but for `allOf` the same is of type void.
@@ -355,9 +356,10 @@ In case of `anyOf` the returned CF is of type object but for `allOf` the same is
 
 For allOf completableFuture will not complete unless all of the CFs completes.
 If one of them thorws exception, then also it will wait until all of them has executed. If one of then is cancelled , then the CF will also be thowing cancel exception.
+
 <br/>
 <br/>
 
-## Completable using allof
+## Completable using allOf
 
 CompletableAllof.java has been modified to explain some of the uses of `allOf`.
