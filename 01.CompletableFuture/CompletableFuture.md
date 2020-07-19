@@ -291,6 +291,8 @@ acceptEither accepts result from any completableFuture which completes faster. S
 
 ## Completable anyof
 
+[CompletableAnyof.java](https://github.com/mbajoria1/LearningJava/blob/master/01.CompletableFuture/src/CompletableAnyof.java)
+
 CF `anyof` can take multiple `completableFuture` as input and returns the one which completes first. Anyof can take different type of CFs. See below example. Because of accepting different types, the returned CF is an object. So, without knowing object type you cannot apply direct opeartions on it. You need to check its type first.
 
 ```
@@ -313,6 +315,8 @@ In case of anyOf, which ever CF completes first the final o/p depends on that.
   <br/>
 
 ## Completable timeout
+
+[CompletableTimeout.java](https://github.com/mbajoria1/LearningJava/blob/master/01.CompletableFuture/src/CompletableTimeout.java)
 
 For `anyOf` function we can introduce a CF with a timeout value. If none of the CFs responds within that SLA, `anyOf completableFuture` will complete exceptionally thworing a timeout exception.
 
@@ -338,6 +342,22 @@ For `anyOf` function we can introduce a CF with a timeout value. If none of the 
         .thenAccept(System.out::println);
 ```
 
+<br/>
 ## Completable allof
+[CompletableAllof.java](https://github.com/mbajoria1/LearningJava/blob/master/01.CompletableFuture/src/CompletableAllof.java)
+
+In case of `anyOf` the returned CF is of type object but for `allOf` the same is of type void.
+
+```
+ CompletableFuture<Object> c1 = CompletableFuture.anyOf(cf1, cf2, cf3, cf4, cf5,cf6);
+ CompletableFuture<Void> c1 = CompletableFuture.allOf(cf1, cf2, cf3, cf4, cf5,cf6);
+```
+
+For allOf completableFuture will not complete unless all of the CFs completes.
+If one of them thorws exception, then also it will wait until all of them has executed. If one of then is cancelled , then the CF will also be thowing cancel exception.
+<br/>
+<br/>
 
 ## Completable using allof
+
+CompletableAllof.java has been modified to explain some of the uses of `allOf`.
