@@ -58,11 +58,11 @@
  * Replication helps in better availability so if one broker goes down , others can still
    serve the data.
    
-   Below is an example of replication factor of 2 for a topic with 2 partitions:
+ * Below is an example of replication factor of 2 for a topic with 2 partitions:
    
   ![](https://github.com/mbajoria1/LearningJava/blob/master/02.ApacheKafka/ReplicationFactor.PNG)
  
-  For a partition in a topic only one broker can be leader at a given time and other brokers are in-synch replicas(ISRs).
+ * For a partition in a topic only one broker can be leader at a given time and other brokers are in-synch replicas(ISRs).
   
   ![](https://github.com/mbajoria1/LearningJava/blob/master/02.ApacheKafka/LeadersInReplication.PNG)   
    
