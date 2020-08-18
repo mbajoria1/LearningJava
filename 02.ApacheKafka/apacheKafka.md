@@ -82,8 +82,10 @@
    * A key can be string or number and producers can choose to send a key with a message.    
    * Message key by default will be null and in this case, messages published by prodcuers will be 
      load balanced in round robin fashion.
-   * Messages with same key will always go to same partition. This key could be used if we want to order 
-     messages in a particular partition.
+   * Unlike round-robin, messages with same non null key will always go to same partition. This key could be used if we want to order 
+     messages in a particular partition. 
+        
+   Default load balancing between multiple brokers from one producer:
         
    ![](https://github.com/mbajoria1/LearningJava/blob/master/02.ApacheKafka/Producers.PNG)    
        
