@@ -63,6 +63,7 @@
   ![](https://github.com/mbajoria1/LearningJava/blob/master/02.ApacheKafka/ReplicationFactor.PNG)
  
  * For a partition in a topic only one broker can be leader at a given time and other brokers are in-synch replicas(ISRs).
+ * Only the leader can receive and serve data for that partition.
   
   ![](https://github.com/mbajoria1/LearningJava/blob/master/02.ApacheKafka/LeadersInReplication.PNG)   
    
