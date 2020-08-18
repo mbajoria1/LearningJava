@@ -50,7 +50,7 @@
  
  * A good number to start with is 3 brokers but some big cluster can have upto 100 brokers.
  
- !(https://github.com/mbajoria1/LearningJava/blob/master/02.ApacheKafka/Brokers.PNG)
+ ![](https://github.com/mbajoria1/LearningJava/blob/master/02.ApacheKafka/Brokers.PNG)
  
  ### Replication Factor & Leader: 
  
@@ -60,11 +60,11 @@
    
    Below is an example of replication factor of 2 for a topic with 2 partitions:
    
-  !(https://github.com/mbajoria1/LearningJava/blob/master/02.ApacheKafka/ReplicationFactor.PNG)
+  ![](https://github.com/mbajoria1/LearningJava/blob/master/02.ApacheKafka/ReplicationFactor.PNG)
  
   For a partition in a topic only one broker can be leader at a given time and other brokers are in-synch replicas(ISRs).
   
-  !(https://github.com/mbajoria1/LearningJava/blob/master/02.ApacheKafka/LeadersInReplication.PNG)   
+  ![](https://github.com/mbajoria1/LearningJava/blob/master/02.ApacheKafka/LeadersInReplication.PNG)   
    
        
     
