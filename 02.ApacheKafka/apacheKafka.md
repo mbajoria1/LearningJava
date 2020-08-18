@@ -36,7 +36,35 @@
  * Kafka has messages for a specific period after that messages are deleted. Default is 1 week. 
     But offsets always keep on increasing , it never resets to 0.
     
- ![Text](https://github.com/mbajoria1/LearningJava/blob/master/02.ApacheKafka/Kafka%20Topics%20Partitions%20Offsets.PNG)]   
+ ![Img1](https://github.com/mbajoria1/LearningJava/blob/master/02.ApacheKafka/Kafka%20Topics%20Partitions%20Offsets.PNG)
+ 
+ ### Brokers & Topics:
+ 
+ * Kafka has clusters containing multiple brokers (servers)
+ 
+ * Each broker is identified by an integer number (Always a number) For Example: Broker 101, Broker 102 etc.
+ 
+ * Each broker will have certain partitions (from same or different topics)
+ 
+ * Once you are connected to one broker(bootstrap broker) , you are connected to entire cluster
+ 
+ * A good number to start with is 3 brokers but some big cluster can have upto 100 brokers.
+ 
+ !(https://github.com/mbajoria1/LearningJava/blob/master/02.ApacheKafka/Brokers.PNG)
+ 
+ ### Replication Factor & Leader: 
+ 
+ * Each Topics should have replication factor > 1. Usually 2 or 3.
+ * Replication helps in better availability so if one broker goes down , others can still
+   serve the data.
+   
+   Below is an example of replication factor of 2 for a topic with 2 partitions:
+   
+  !(https://github.com/mbajoria1/LearningJava/blob/master/02.ApacheKafka/ReplicationFactor.PNG)
+ 
+  For a partition in a topic only one broker can be leader at a given time and other brokers are in-synch replicas(ISRs).
+  
+  !(https://github.com/mbajoria1/LearningJava/blob/master/02.ApacheKafka/LeadersInReplication.PNG)   
    
        
     
