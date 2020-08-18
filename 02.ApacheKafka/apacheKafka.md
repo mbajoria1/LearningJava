@@ -15,7 +15,7 @@
     
 ### Topics , Partitions & offsets:
  
-  #####Topics:
+  ##### Topics:
  * A stream of data
  * Similar to tables in database.
  * We can have as many topics as possible
@@ -65,7 +65,28 @@
  * For a partition in a topic only one broker can be leader at a given time and other brokers are in-synch replicas(ISRs).
  * Only the leader can receive and serve data for that partition.
   
-  ![](https://github.com/mbajoria1/LearningJava/blob/master/02.ApacheKafka/LeadersInReplication.PNG)   
+  ![](https://github.com/mbajoria1/LearningJava/blob/master/02.ApacheKafka/LeadersInReplication.PNG)
+  
+  ### Producers:
+  
+  * Producers can write data to topics (containing multiple partitions)
+  * Producers automatically know that it will write to which partition & which broker
+  * In case of broker failures producer will automatically recover
+  * Producers can choose to get an acknowledgement for writes. There are 3 types of configurations.
+     1. ack = 0, producers don't wait for ack. (Risk of data loss)
+     2. ack = 1, producers will wait for leader broker to respond back with ack.(Limited data loss) - this is default option.
+     3. ack = all, Leader+ replicas ack (No data loss)  
+     
+   #### Message keys in producers:
+   <br/>
+    * A key can be string or number and producers can choose to send a key with a message.    
+    * Message key by default will be null and in this case, messages published by prodcuers will be 
+       load balanced in round robin fashion.
+    * Messages with same key will always go to same partition. This key could be used if we want to order 
+        messages in a particular partition.
+        
+    ![](https://github.com/mbajoria1/LearningJava/blob/master/02.ApacheKafka/Producers.PNG)    
+       
    
        
     
