@@ -1,6 +1,4 @@
-#Apache Kafka: 
-
-Is:
+# Apache Kafka is: 
 1. Distributed
 2. Resilient
 3. Fault tolerant
@@ -38,7 +36,7 @@ Is:
  * Kafka has messages for a specific period after that messages are deleted. Default is 1 week. 
     But offsets always keep on increasing , it never resets to 0.
     
- ![Text](C:/Users/mbajo/IdeaProjects/ApacheKafka/src/Kafka Topics Partitions Offsets.PNG)]   
+ ![Text](https://github.com/mbajoria1/LearningJava/blob/master/02.ApacheKafka/Kafka%20Topics%20Partitions%20Offsets.PNG)]   
    
        
     
