@@ -87,7 +87,74 @@
         
    Default load balancing between multiple brokers from one producer:
         
-   ![](https://github.com/mbajoria1/LearningJava/blob/master/02.ApacheKafka/Producers.PNG)    
+   ![](https://github.com/mbajoria1/LearningJava/blob/master/02.ApacheKafka/Producers.PNG)
+   
+ #### Kafka consumers
+ 
+ * Kafka consumer reads messages from topic.
+ * Consumer will automatically know from which partition to read from
+ * Similar to producer if any broker fails, consumer knows how to recover
+ * Consumer work in consumer groups, each group will be reading from specific set of partitions
+ * If we have more consumers than partitions then some of them will be inactive
+ 
+ ##### Consumer offset
+ 
+ * Kafka stores offsets from which a consumer has been reading
+ * Offsets are commited live in a topic names __consumer_offsets.
+ * When a consumer has processed the data from a partition it should be committing data
+   to the topic
+ * If a consumer dies, it will be able to read from the point where it left off. Because of consumer offset
+ 
+ ##### Delivery semantics for Kafka consumer
+ 
+ * Consumers can choose when to commit the offset.
+ 
+ **at-most-once**
+    offsets are commited as soon message is received. Chance of data loss.
+    as if the processing goes wrong, the data is lost.
+    <br/>
+ **at-least-once**
+    offsets are commited once the received message has been processed.
+    If processing goes wrong, you can read the data again.
+    As there are chances of duplicate processing, idempotency sollution must be in place
+    to not impact your application.
+    <br/>
+ **exactly-once**
+     This is kafka => kafka processing using Kafka stream APIS.
+     In case of kafka => external system, idempotent consumer needs to be used.
+     This ensures that message is delivered exactly once without duplication.
+     
+ <br/>
+ 
+ #### Kafka broker discovery
+ 
+ * Each kafka broker is a bootstrap server. 
+ * What that means is you need to connect
+   to only one broker and you are connected to entire cluster.
+ * Each broker knows about all other brokers, partitions, topics(metadata)
+ 
+ Any kafka client(producer/consumer) initially sends a connection metadata request to a broker.
+ Broker responds back with the metadata information which has all broker details.
+ Now client can connect to any of the broker as needed.
+ 
+ #### Zookeeper
+ 
+ * Manages all brokers
+ * Have leader & follower zookeeprs. Leader managers kafka writes, where as follower manages reads
+ * It sends a notification to kafka when a topic is created, deleted, borker goes down or broker is up again.
+ * It manages selecting partition leader
+ * Kafka cannot work with zookeeper
+ * Zookeeper doesn's store consumer offset anymore starting version > v0.10
+ * Zookeeper by design operate on odd number of servers
+ 
+ #### Kafka guarantees
+ 
+ 
+ #### Theory in one glance
+ 
+     
+          
+       
        
    
        
