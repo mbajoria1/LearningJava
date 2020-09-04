@@ -149,8 +149,11 @@
  
  #### Kafka guarantees
  
+ ![](https://github.com/mbajoria1/LearningJava/blob/master/02.ApacheKafka/Kafka-Guarantees.PNG)
  
  #### Theory in one glance
+ 
+ ![](https://github.com/mbajoria1/LearningJava/blob/master/02.ApacheKafka/Kafka%20theory.PNG)
  
      
           
