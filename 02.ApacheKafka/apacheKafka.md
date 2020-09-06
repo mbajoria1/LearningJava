@@ -156,15 +156,18 @@
  ![](https://github.com/mbajoria1/LearningJava/blob/master/02.ApacheKafka/Kafka%20theory.PNG)
  
  
- #### Kafka topic create through CLI
+ ## Kafka topic create through CLI
  
- First you need to install Apache Kafka in your system. As under c drive , place the extracted kafka folder.
- Inside kafka folder, we need to create 
- a data folder which will have another two more folders (kafka & zookeper). 
- Then under config, we need to update server.properties & zookeeper.properties 
- file to point to correct kafka & zookeeper folder path.
+ To run Kafka CLI we need perform follow below steps sequentially. 
  
- Once above is done, we can start first the zookeeper server & then kafka (broker server). 
+ * First we need to install Apache Kafka in your system from site: https://kafka.apache.org/downloads
+ * After extracting , place the extracted kafka folder under c:/ driver for Windows system.
+ * Inside kafka folder, we need to create a data folder which will have another two folders (kafka & zookeper). 
+ * Under Kafka extracted folder, there will ne a config folder.We need to update server.properties & zookeeper.properties 
+    file to point to correct kafka & zookeeper folder path just created.
+ 
+ * Once above is done, we can start first the zookeeper server & then kafka (broker server). 
+ <br/>
  `zookeeper-server-start.bat config/zookeeper.properties `   - to start zookeeper
  <br/>
  `kafka-server-start.bat config/server.properties `   - to start kafka broker
@@ -172,12 +175,11 @@
  **Topic Create command** 
   
  ` kafka-topic --zookeeper localhost:2181 --topic first_topic --create --partitions 3 --replication-factor 1`  
- 
+ <br/>
  - topic named first-topic will be created   
    
-   > Remember: you can have replication factor as many as number of brokers, not more than that.
-
- Once topic is created, we can produce and consumer through CLI using below command. 
+ > Remember: you can have replication factor as many as number of brokers, not more than that.
+ > Once topic is created, we can produce and consume through CLI using below command. 
  
  `kafka-console-producer --broker-list localhost:9092 --topic first_topic` 
  
