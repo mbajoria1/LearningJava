@@ -216,6 +216,7 @@ For maven project below dependency needs to be added.
 
 * Its important to close the producer after messages are published using ` kafkaProducer.close()  `
 <br/>
+
 ### Consumer:
 <br/>
 
