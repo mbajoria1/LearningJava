@@ -187,10 +187,8 @@
  > Here, broker-list is list of kafka servers running.
 
 ` kafka-console-consumer --bootstrap-server localhost:9092 --topic first_topic `
-
-
+<br/>
 ## Kafka Producer / Consumer through Java program:
-
 <br/>
 For maven project below dependency needs to be added.
 
@@ -217,11 +215,8 @@ For maven project below dependency needs to be added.
 * ` kafkaProducer.flush() ` can be used to produce in blocking manner in which it will wait until all messages has been delivered.
 
 * Its important to close the producer after messages are published using ` kafkaProducer.close()  `
-
 <br/>
-
 ### Consumer:
-
 <br/>
 
 * For KafkaConsumer also it takes a list of properties but unlike producer , it takes deserializer as java needs to convert bytes into Java objects.
