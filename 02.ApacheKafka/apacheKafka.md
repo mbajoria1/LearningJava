@@ -168,27 +168,76 @@
  
  * Once above is done, we can start first the zookeeper server & then kafka (broker server). 
  <br/>
- `zookeeper-server-start.bat config/zookeeper.properties `   - to start zookeeper
+ ` zookeeper-server-start.bat config/zookeeper.properties `   - to start zookeeper
  <br/>
- `kafka-server-start.bat config/server.properties `   - to start kafka broker
+ ` kafka-server-start.bat config/server.properties `   - to start kafka broker
  
  <br/>
  
- **Topic Create command** 
+ ##### Topic Create command
   
  ` kafka-topic --zookeeper localhost:2181 --topic first_topic --create --partitions 3 --replication-factor 1`  
  <br/>
  > topic named first-topic will be created   
-   
  > Remember: you can have replication factor as many as number of brokers, not more than that.
  > Once topic is created, we can produce and consume through CLI using below command. 
  
- `kafka-console-producer --broker-list localhost:9092 --topic first_topic` 
+ ` kafka-console-producer --broker-list localhost:9092 --topic first_topic ` 
  
  > Here, broker-list is list of kafka servers running.
 
-`kafka-console-consumer --bootstrap-server localhost:9092 --topic first_topic `
+` kafka-console-consumer --bootstrap-server localhost:9092 --topic first_topic `
 
+
+## Kafka Producer / Consumer through Java program:
+
+<br/>
+For maven project below dependency needs to be added.
+
+```
+    <dependency>
+        <groupId>org.apache.kafka</groupId>
+        <artifactId>kafka-clients</artifactId>
+        <version>2.2.0</version>
+    </dependency>
+
+```
+### Producers:
+<br/>
+* For Producer, we need to create a set of properties to define Kafka bootstrap-server, key & value serializer
+  as Kafka stores messages in bytes , and from java class, we need to define serialize class (string, integer or custom class objects).
+  
+* Once KafkaProducer is created, ProducerRecord can be created which has overloaded constructor but one of them
+  takes a topic name & a message.
+
+* Now we can call `send()` method to start sending messages to kafka topic.
+* We can define callback function as well, where KafkaProducer returns a metadata which contains many details like
+  message key, value, partition & offset at which message was produced.
+
+* ` kafkaProducer.flush() ` can be used to produce in blocking manner in which it will wait until all messages has been delivered.
+
+* Its important to close the producer after messages are published using ` kafkaProducer.close()  `
+
+<br/>
+
+### Consumer:
+
+<br/>
+
+* For KafkaConsumer also it takes a list of properties but unlike producer , it takes deserializer as java needs to convert bytes into Java objects.
+
+* Next consumer needs to subscribe to a topic.
+
+* Then consumer will poll for any new messages. Below method returns a ConsumerRecords objects which we can
+   be iterated for reading consumed message's details. 
+
+`   kafkaConsumer.poll(Duration.ofMillis(10000)) ` 
+<br/>
+
+Below contains source code for producer & consumer demo code.
+
+![](https://github.com/mbajoria1/LearningJava/tree/master/02.ApacheKafka/src/main/java/kafka/learning )
+<br/>
 
        
        
