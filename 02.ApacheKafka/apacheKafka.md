@@ -172,11 +172,13 @@
  <br/>
  `kafka-server-start.bat config/server.properties `   - to start kafka broker
  
+ <br/>
+ 
  **Topic Create command** 
   
  ` kafka-topic --zookeeper localhost:2181 --topic first_topic --create --partitions 3 --replication-factor 1`  
  <br/>
- - topic named first-topic will be created   
+ > topic named first-topic will be created   
    
  > Remember: you can have replication factor as many as number of brokers, not more than that.
  > Once topic is created, we can produce and consume through CLI using below command. 
